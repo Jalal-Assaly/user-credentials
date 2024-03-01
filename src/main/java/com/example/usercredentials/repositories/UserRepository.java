@@ -1,0 +1,13 @@
+package com.example.usercredentials.repositories;
+
+import com.example.usercredentials.documents.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+
+    Optional<User> findUserBySsn(String SSN);
+}
