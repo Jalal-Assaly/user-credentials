@@ -9,5 +9,4 @@ class UserCredentialsApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
