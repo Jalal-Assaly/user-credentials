@@ -16,11 +16,11 @@ public class UserDTO {
     private String ssn;
 
     @NotBlank(message = "First Name cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "First Name must include letters only")
     private String firstName;
 
     @NotBlank(message = "Last Name cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z]+$")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Last Name must include letters only")
     private String lastName;
 
     @NotBlank(message = "Email cannot be blank")
