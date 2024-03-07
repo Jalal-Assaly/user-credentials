@@ -1,9 +1,11 @@
 package com.example.usercredentials.models;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class UserDTO {
 
     @NotBlank(message = "User ID cannot be blank")
@@ -12,7 +14,7 @@ public class UserDTO {
     private String id;
 
     @NotBlank(message = "SSN cannot be blank")
-    @Pattern(regexp = "^\\d{14}$")
+    @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{4}$", message = "SSN does not follow the standard format")
     private String ssn;
 
     @NotBlank(message = "First Name cannot be blank")
