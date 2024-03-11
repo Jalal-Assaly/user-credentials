@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>user-credentials</artifactId>
+    <artifactId>user-credentials-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>user-credentials</name>
     <description>user-credentials</description>
