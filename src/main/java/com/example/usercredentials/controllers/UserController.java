@@ -1,6 +1,6 @@
 package com.example.usercredentials.controllers;
 
-import com.example.usercredentials.models.UserDTO;
+import com.example.usercredentials.models.UserModel;
 import com.example.usercredentials.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,26 +17,26 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<UserDTO>> listAllUsers() {
-        List<UserDTO> userDTOList = userService.getAllUsers();
-        return new ResponseEntity<>(userDTOList, HttpStatus.OK);
+    public ResponseEntity<List<UserModel>> listAllUsers() {
+        List<UserModel> userModelList = userService.getAllUsers();
+        return new ResponseEntity<>(userModelList, HttpStatus.OK);
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<UserDTO> findUserById(@PathVariable String id) {
-        UserDTO userDTO = userService.findUserById(id);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<UserModel> findUserById(@PathVariable String id) {
+        UserModel userModel = userService.findUserById(id);
+        return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
     @GetMapping("/ssn/{ssn}")
-    public ResponseEntity<UserDTO> findUserBySSN(@PathVariable String ssn) {
-        UserDTO userDTO = userService.findUserBySsn(ssn);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<UserModel> findUserBySSN(@PathVariable String ssn) {
+        UserModel userModel = userService.findUserBySsn(ssn);
+        return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addUser(@RequestBody UserDTO userDTO) {
-        userService.addUser(userDTO);
+    public ResponseEntity<Void> addUser(@RequestBody UserModel userModel) {
+        userService.addUser(userModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -47,8 +47,8 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
-        userService.updateUser(id, userDTO);
+    public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserModel userModel) {
+        userService.updateUser(id, userModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

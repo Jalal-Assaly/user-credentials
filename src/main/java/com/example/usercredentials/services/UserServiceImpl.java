@@ -1,7 +1,7 @@
 package com.example.usercredentials.services;
 
 import com.example.usercredentials.documents.User;
-import com.example.usercredentials.models.UserDTO;
+import com.example.usercredentials.models.UserModel;
 import com.example.usercredentials.models.mappers.UserMapper;
 import com.example.usercredentials.repositories.UserRepository;
 import jakarta.persistence.EntityExistsException;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public List<UserDTO> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         List<User> users = userRepository.findAll();
 
         return users.stream()
@@ -31,22 +31,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findUserById(String id) {
+    public UserModel findUserById(String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User was not found"));
         return userMapper.toUserDTO(user);
     }
 
     @Override
-    public UserDTO findUserBySsn(String ssn) {
+    public UserModel findUserBySsn(String ssn) {
         User user = userRepository.findUserBySsn(ssn)
                 .orElseThrow(() -> new EntityNotFoundException("User was not found"));
         return userMapper.toUserDTO(user);
     }
 
     @Override
-    public void addUser(UserDTO userDTO) {
-        User user = userMapper.toUser(userDTO);
+    public void addUser(UserModel userModel) {
+        User user = userMapper.toUser(userModel);
         if(userRepository.existsById(user.getId())) {
             throw new EntityExistsException("User already exists");
         } else {
@@ -62,10 +62,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String id, UserDTO userDTO) {
+    public void updateUser(String id, UserModel userModel) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User was not found"));
-        BeanUtils.copyProperties(userDTO, user, "id");
+        BeanUtils.copyProperties(userModel, user, "id");
         userRepository.save(user);
     }
 }
