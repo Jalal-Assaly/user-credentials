@@ -1,7 +1,7 @@
 package com.example.usercredentials.models.mappers;
 
 import com.example.usercredentials.documents.User;
-import com.example.usercredentials.models.UserDTO;
+import com.example.usercredentials.models.UserModel;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User toUser(UserDTO userDTO);
-    UserDTO toUserDTO(User user);
+    User toUser(UserModel userModel);
+    UserModel toUserDTO(User user);
 }

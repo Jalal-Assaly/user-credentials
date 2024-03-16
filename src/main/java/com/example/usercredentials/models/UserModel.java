@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserDTO {
+public class UserModel {
 
     @NotBlank(message = "User ID cannot be blank")
     @Size(min = 1, max = 1000000, message = "User ID does not meet size requirements")
