@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ExceptionResponseBody> handleConstraintViolationException(ConstraintViolationException exception) {
+    public ResponseEntity<ConstraintViolationExceptionResponseBody> handleConstraintViolationException(ConstraintViolationException exception) {
         HttpStatusCode status = HttpStatus.BAD_REQUEST;
-        ExceptionResponseBody exceptionResponseBody = new ExceptionResponseBody(status, exception);
+        ConstraintViolationExceptionResponseBody exceptionResponseBody = new ConstraintViolationExceptionResponseBody(status, exception);
         return new ResponseEntity<>(exceptionResponseBody, status);
     }
 
