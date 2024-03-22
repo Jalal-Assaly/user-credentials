@@ -29,7 +29,7 @@ public class UserModel {
     @Email(message = "Given Email address has an unsuitable format")
     private String email;
 
-    @NotEmpty(message = "Password cannot be empty")
+    @NotBlank(message = "Password cannot be empty")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).+$",
             message = "Password must include at least one number, one capital letter and one symbol")
     @Size(min = 7, message = "Password must include at least 7 characters")

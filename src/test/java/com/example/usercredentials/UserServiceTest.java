@@ -68,7 +68,7 @@ public class UserServiceTest {
 
     @Test void testFindUserById_Success() {
         // Arrange
-        when(userRepository.findById(testUser1.getId()) ).thenReturn(Optional.of(testUser1));
+        when(userRepository.findById(testUser1.getId())).thenReturn(Optional.of(testUser1));
         when(userMapper.toUserModel(testUser1)).thenReturn(testUserModel1);
 
         // Act
