@@ -7,6 +7,7 @@ import com.example.usercredentials.repositories.UserRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class UserService {
     }
 
     public void updateUser(String id, @Valid UserModel userModel) {
+        if(!id.equals(userModel.getId())) throw new ValidationException("Path ID and Request ID not matching");
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User was not found"));
         BeanUtils.copyProperties(userModel, user, "id");

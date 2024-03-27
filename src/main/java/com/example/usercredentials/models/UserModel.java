@@ -10,7 +10,6 @@ public class UserModel {
 
     @NotBlank(message = "User ID cannot be blank")
     @Size(min = 1, max = 1000000, message = "User ID does not meet size requirements")
-//    @Pattern(regexp = "^\\d{1,6}$", message = "User ID is in an unrecognized format")
     private String id;
 
     @NotBlank(message = "SSN cannot be blank")
