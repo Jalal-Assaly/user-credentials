@@ -1,5 +1,6 @@
-package com.example.usercredentials.exceptionhandlers;
+package com.example.usercredentials.exceptionhandlers.responsebodies;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.ConstraintViolation;
@@ -19,6 +20,7 @@ import java.util.Set;
 public class ConstraintViolationExceptionResponseBody {
 
     @JsonProperty("timestamp")
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private final LocalDateTime dateTime;
     @JsonProperty("status")
     private final Integer status;
