@@ -22,13 +22,13 @@ public class UserController {
         return new ResponseEntity<>(userModelList, HttpStatus.OK);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/find/id/{id}")
     public ResponseEntity<UserModel> findUserById(@PathVariable String id) {
         UserModel userModel = userService.findUserById(id);
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
-    @GetMapping("/ssn/{ssn}")
+    @GetMapping("/find/ssn/{ssn}")
     public ResponseEntity<UserModel> findUserBySSN(@PathVariable String ssn) {
         UserModel userModel = userService.findUserBySsn(ssn);
         return new ResponseEntity<>(userModel, HttpStatus.OK);
