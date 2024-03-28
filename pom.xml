@@ -8,11 +8,11 @@
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>org.pacs</groupId>
     <artifactId>user-credentials-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>user-credentials</name>
-    <description>user-credentials</description>
+    <name>user-credentials-api</name>
+    <description>user-credentials-api</description>
     <properties>
         <java.version>17</java.version>
     </properties>
