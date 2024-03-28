@@ -32,8 +32,5 @@ public class UserModel {
     private String email;
 
     @NotBlank(message = "Password cannot be empty")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).+$",
-            message = "Password must include at least one number, one capital letter and one symbol")
-    @Size(min = 7, message = "Password must include at least 7 characters")
     private String password;
 }

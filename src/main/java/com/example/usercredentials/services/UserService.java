@@ -61,7 +61,7 @@ public class UserService {
         return userMapper.toUserModel(visitor);
     }
 
-    public void addEmployee(@Valid UserModel employeeModel) {
+    public void addNewEmployee(@Valid UserModel employeeModel) {
         Employee employee = userMapper.toEmployee(employeeModel);
         if(employeeRepository.existsById(employee.getId())) {
             throw new EntityExistsException("Employee already exists");
@@ -70,7 +70,7 @@ public class UserService {
         }
     }
 
-    public void addVisitor(@Valid UserModel visitorModel) {
+    public void addNewVisitor(@Valid UserModel visitorModel) {
         Visitor visitor = userMapper.toVisitor(visitorModel);
         if(visitorRepository.existsById(visitor.getId())) {
             throw new EntityExistsException("Visitor already exists");

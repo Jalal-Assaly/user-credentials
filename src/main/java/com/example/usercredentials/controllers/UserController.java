@@ -54,13 +54,13 @@ public class UserController {
 
     @PostMapping("/employee/add")
     public ResponseEntity<Void> addEmployee(@RequestBody UserModel userModel) {
-        userService.addEmployee(userModel);
+        userService.addNewEmployee(userModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/visitor/add")
     public ResponseEntity<Void> addVisitor(@RequestBody UserModel userModel) {
-        userService.addVisitor(userModel);
+        userService.addNewVisitor(userModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
