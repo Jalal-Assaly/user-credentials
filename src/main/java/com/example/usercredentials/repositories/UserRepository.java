@@ -4,10 +4,7 @@ import com.example.usercredentials.documents.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository<T extends User> extends MongoRepository<T, String> {
 
-    Optional<User> findUserBySsn(String SSN);
 }

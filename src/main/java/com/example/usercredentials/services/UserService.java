@@ -1,9 +1,11 @@
 package com.example.usercredentials.services;
 
-import com.example.usercredentials.documents.User;
+import com.example.usercredentials.documents.Employee;
+import com.example.usercredentials.documents.Visitor;
 import com.example.usercredentials.models.UserModel;
 import com.example.usercredentials.models.mappers.UserMapper;
-import com.example.usercredentials.repositories.UserRepository;
+import com.example.usercredentials.repositories.EmployeeRepository;
+import com.example.usercredentials.repositories.VisitorRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -11,58 +13,97 @@ import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
-@Validated
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final EmployeeRepository employeeRepository;
+    private final VisitorRepository visitorRepository;
     private final UserMapper userMapper;
 
-    public List<UserModel> getAllUsers() {
-        List<User> users = userRepository.findAll();
-
-        return users.stream()
+    public List<UserModel> getAllEmployees() {
+        return employeeRepository.findAll()
+                .stream()
                 .map(userMapper::toUserModel)
                 .toList();
     }
 
-    public UserModel findUserById(String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User was not found"));
-        return userMapper.toUserModel(user);
+    public List<UserModel> getAllVisitors() {
+        return visitorRepository.findAll().stream()
+                .map(userMapper::toUserModel)
+                .toList();
     }
 
-    public UserModel findUserBySsn(String ssn) {
-        User user = userRepository.findUserBySsn(ssn)
-                .orElseThrow(() -> new EntityNotFoundException("User was not found"));
-        return userMapper.toUserModel(user);
+    public UserModel findEmployeeById(String id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee was not found"));
+        return userMapper.toUserModel(employee);
     }
 
-    public void addUser(@Valid UserModel userModel) {
-        User user = userMapper.toUser(userModel);
-        if(userRepository.existsById(user.getId())) {
-            throw new EntityExistsException("User already exists");
+    public UserModel findVisitorById(String id) {
+        Visitor visitor = visitorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Visitor was not found"));
+        return userMapper.toUserModel(visitor);
+    }
+
+    public UserModel findEmployeeBySsn(String ssn) {
+        Employee employee = employeeRepository.findEmployeeBySsn(ssn)
+                .orElseThrow(() -> new EntityNotFoundException("Employee was not found"));
+        return userMapper.toUserModel(employee);
+    }
+
+    public UserModel findVisitorBySsn(String ssn) {
+        Visitor visitor = visitorRepository.findVisitorBySsn(ssn)
+                .orElseThrow(() -> new EntityNotFoundException("Visitor was not found"));
+        return userMapper.toUserModel(visitor);
+    }
+
+    public void addEmployee(@Valid UserModel employeeModel) {
+        Employee employee = userMapper.toEmployee(employeeModel);
+        if(employeeRepository.existsById(employee.getId())) {
+            throw new EntityExistsException("Employee already exists");
         } else {
-            userRepository.save(user);
+            employeeRepository.save(employee);
         }
     }
 
-    public void deleteUser(String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User was not found"));
-        userRepository.delete(user);
+    public void addVisitor(@Valid UserModel visitorModel) {
+        Visitor visitor = userMapper.toVisitor(visitorModel);
+        if(visitorRepository.existsById(visitor.getId())) {
+            throw new EntityExistsException("Visitor already exists");
+        } else {
+            visitorRepository.save(visitor);
+        }
     }
 
-    public void updateUser(String id, @Valid UserModel userModel) {
-        if(!id.equals(userModel.getId())) throw new ValidationException("Path ID and Request ID not matching");
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User was not found"));
-        BeanUtils.copyProperties(userModel, user, "id");
-        userRepository.save(user);
+    public void deleteEmployee(String id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee was not found"));
+        employeeRepository.delete(employee);
+    }
+
+    public void deleteVisitor(String id) {
+        Visitor visitor = visitorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Visitor was not found"));
+        visitorRepository.delete(visitor);
+    }
+
+    public void updateEmployee(String id, @Valid UserModel employeeModel) {
+        if(!id.equals(employeeModel.getId())) throw new ValidationException("Path ID and Request ID not matching");
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee was not found"));
+        BeanUtils.copyProperties(employeeModel, employee, "id");
+        employeeRepository.save(employee);
+    }
+
+    public void updateVisitor(String id, @Valid UserModel visitorModel) {
+        if(!id.equals(visitorModel.getId())) throw new ValidationException("Path ID and Request ID not matching");
+        Visitor visitor = visitorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Visitor was not found"));
+        BeanUtils.copyProperties(visitorModel, visitor, "id");
+        visitorRepository.save(visitor);
     }
 }
