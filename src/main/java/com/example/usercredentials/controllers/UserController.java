@@ -16,78 +16,75 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/{role}/list")
-    public ResponseEntity<List<UserModel>> listAllUsers(@PathVariable() String role) {
-        List<UserModel> userList;
-        if ("employee".equals(role)) {
-            userList = userService.getAllEmployees();
-        } else if ("visitor".equals(role)) {
-            userList = userService.getAllVisitors();
-        } else {
-            return new ResponseEntity<>(List.of(), HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/employee/list")
+    public ResponseEntity<List<UserModel>> listAllEmployees() {
+        List<UserModel> userList = userService.getAllEmployees();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
-    @GetMapping("/{role}/find/id/{id}")
-    public ResponseEntity<UserModel> findUserById(@PathVariable String role, @PathVariable String id) {
-        UserModel user;
-        if ("employee".equals(role)) {
-            user = userService.findEmployeeById(id);
-        } else if ("visitor".equals(role)) {
-            user = userService.findVisitorById(id);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/visitor/list")
+    public ResponseEntity<List<UserModel>> listAllVisitors() {
+        List<UserModel> userList = userService.getAllVisitors();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping("/employee/find/id/{id}")
+    public ResponseEntity<UserModel> findEmployeeById(@PathVariable String id) {
+        UserModel user = userService.findEmployeeById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/{role}/find/email")
-    public ResponseEntity<UserModel> findUserByEmail(@PathVariable String role, @RequestParam String email) {
-        UserModel user;
-        if ("employee".equals(role)) {
-            user = userService.findEmployeeByEmail(email);
-        } else if ("visitors".equals(role)) {
-            user = userService.findVisitorByEmail(email);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/visitor/find/id/{id}")
+    public ResponseEntity<UserModel> findUserById(@PathVariable String id) {
+        UserModel user = userService.findVisitorById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/{role}/add")
-    public ResponseEntity<Void> addUser(@PathVariable String role, @RequestBody UserModel userModel) {
-        if ("employee".equals(role)) {
-            userService.addEmployee(userModel);
-        } else if ("visitors".equals(role)) {
-            userService.addVisitor(userModel);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/employee/find/email")
+    public ResponseEntity<UserModel> findEmployeeByEmail(@RequestParam String email) {
+        UserModel user = userService.findEmployeeByEmail(email);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/visitor/find/email")
+    public ResponseEntity<UserModel> findVisitorByEmail(@RequestParam String email) {
+        UserModel user = userService.findVisitorByEmail(email);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/employee/add")
+    public ResponseEntity<Void> addEmployee(@RequestBody UserModel userModel) {
+        userService.addEmployee(userModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{role}/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String role, @PathVariable String id) {
-        if ("employee".equals(role)) {
-            userService.deleteEmployee(id);
-        } else if ("visitors".equals(role)) {
-            userService.deleteVisitor(id);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping("/visitor/add")
+    public ResponseEntity<Void> addVisitor(@RequestBody UserModel userModel) {
+        userService.addVisitor(userModel);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/employee/delete/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
+        userService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/{role}/update/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable String role, @PathVariable String id, @RequestBody UserModel userModel) {
-        if ("employee".equals(role)) {
-            userService.updateEmployee(id, userModel);
-        } else if ("visitors".equals(role)) {
-            userService.updateVisitor(id, userModel);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @DeleteMapping("/visitor/delete/{id}")
+    public ResponseEntity<Void> deleteVisitor(@PathVariable String id) {
+        userService.deleteVisitor(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/employee/update/{id}")
+    public ResponseEntity<Void> updateEmployee(@PathVariable String id, @RequestBody UserModel userModel) {
+        userService.updateEmployee(id, userModel);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/visitor/update/{id}")
+    public ResponseEntity<Void> updateVisitor(@PathVariable String id, @RequestBody UserModel userModel) {
+        userService.updateVisitor(id, userModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
