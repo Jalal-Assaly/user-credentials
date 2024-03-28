@@ -42,13 +42,13 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/{role}/find/ssn/{ssn}")
-    public ResponseEntity<UserModel> findUserBySSN(@PathVariable String role, @PathVariable String ssn) {
+    @GetMapping("/{role}/find/email")
+    public ResponseEntity<UserModel> findUserByEmail(@PathVariable String role, @RequestParam String email) {
         UserModel user;
         if ("employee".equals(role)) {
-            user = userService.findEmployeeBySsn(ssn);
+            user = userService.findEmployeeByEmail(email);
         } else if ("visitors".equals(role)) {
-            user = userService.findVisitorBySsn(ssn);
+            user = userService.findVisitorByEmail(email);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

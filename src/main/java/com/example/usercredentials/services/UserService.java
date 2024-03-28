@@ -49,14 +49,14 @@ public class UserService {
         return userMapper.toUserModel(visitor);
     }
 
-    public UserModel findEmployeeBySsn(String ssn) {
-        Employee employee = employeeRepository.findEmployeeBySsn(ssn)
+    public UserModel findEmployeeByEmail(String email) {
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Employee was not found"));
         return userMapper.toUserModel(employee);
     }
 
-    public UserModel findVisitorBySsn(String ssn) {
-        Visitor visitor = visitorRepository.findVisitorBySsn(ssn)
+    public UserModel findVisitorByEmail(String email) {
+        Visitor visitor = visitorRepository.findVisitorByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Visitor was not found"));
         return userMapper.toUserModel(visitor);
     }

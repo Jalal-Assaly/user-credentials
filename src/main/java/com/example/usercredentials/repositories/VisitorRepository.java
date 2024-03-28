@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface VisitorRepository extends UserRepository<Visitor>{
-    Optional<Visitor> findVisitorBySsn(String SSN);
+    Optional<Visitor> findVisitorByEmail(String email);
 }

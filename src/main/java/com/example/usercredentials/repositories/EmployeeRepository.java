@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends UserRepository<Employee> {
-    Optional<Employee> findEmployeeBySsn(String SSN);
+    Optional<Employee> findEmployeeByEmail(String email);
 }
