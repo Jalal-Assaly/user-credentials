@@ -1,9 +1,10 @@
 package com.example.usercredentials;
 
-import com.example.usercredentials.documents.User;
+import com.example.usercredentials.documents.Employee;
+
 import com.example.usercredentials.models.UserModel;
 import com.example.usercredentials.models.mappers.UserMapper;
-import com.example.usercredentials.repositories.UserRepository;
+import com.example.usercredentials.repositories.EmployeeRepository;
 import com.example.usercredentials.services.UserService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,173 +26,173 @@ import static org.mockito.Mockito.*;
 public class UserServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    private EmployeeRepository employeeRepository;
     @Mock
     private UserMapper userMapper;
     @InjectMocks
-    private UserService userService;
+    private UserService employeeService;
 
     // Some properties
-    User testUser1;
-    User testUser2;
-    List<User> testUsers;
-    UserModel testUserModel1;
-    UserModel testUserModel2;
+    Employee testEmployee1;
+    Employee testEmployee2;
+    List<Employee> testEmployees;
+    UserModel testEmployeeModel1;
+    UserModel testEmployeeModel2;
 
     @BeforeEach void init() {
-        // Initial Setup - User Entities
-        testUser1 = new User("3", "432-33-3425", "Mike", "Johns", "mike.johns@example.com", "test234");
-        testUser2 = new User("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "trialError432");
-        // Initial Setup - User Models
-        testUserModel1 = new UserModel("3", "432-33-3425", "Mike", "Johns", "mike.johns@example.com", "test234");
-        testUserModel2 = new UserModel("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "trialError432");
-        // Initial Setup - Users List
-        testUsers = Arrays.asList(testUser1, testUser2);
+        // Initial Setup - Employee Entities
+        testEmployee1 = new Employee("3", "432-33-3425", "Mike", "Johns", "mike.johns@example.com", "test234");
+        testEmployee2 = new Employee("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "trialError432");
+        // Initial Setup - Employee Models
+        testEmployeeModel1 = new UserModel("3", "432-33-3425", "Mike", "Johns", "mike.johns@example.com", "test234");
+        testEmployeeModel2 = new UserModel("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "trialError432");
+        // Initial Setup - Employees List
+        testEmployees = Arrays.asList(testEmployee1, testEmployee2);
     }
 
-    @Test void testGetAllUsers() {
+    @Test void testGetAllEmployees() {
         // Arrange
-        when(userRepository.findAll()).thenReturn(testUsers);
-        when(userMapper.toUserModel(testUser1)).thenReturn(testUserModel1);
-        when(userMapper.toUserModel(testUser2)).thenReturn(testUserModel2);
+        when(employeeRepository.findAll()).thenReturn(testEmployees);
+        when(userMapper.toUserModel(testEmployee1)).thenReturn(testEmployeeModel1);
+        when(userMapper.toUserModel(testEmployee2)).thenReturn(testEmployeeModel2);
 
         // Act
-        List<UserModel> actualUsers = userService.getAllUsers();
+        List<UserModel> actualEmployees = employeeService.getAllEmployees();
 
         // Verify & Assert
-        verify(userRepository).findAll();  // Verify 'findAll' on the repository was called
-        verify(userMapper, times(2)).toUserModel(any(User.class));
-        assertThat(actualUsers).hasSize(2);
-        assertThat(actualUsers.get(0)).usingRecursiveComparison().isEqualTo(testUserModel1);
-        assertThat(actualUsers.get(1)).usingRecursiveComparison().isEqualTo(testUserModel2);
+        verify(employeeRepository).findAll();  // Verify 'findAll' on the repository was called
+        verify(userMapper, times(2)).toUserModel(any(Employee.class));
+        assertThat(actualEmployees).hasSize(2);
+        assertThat(actualEmployees.get(0)).usingRecursiveComparison().isEqualTo(testEmployeeModel1);
+        assertThat(actualEmployees.get(1)).usingRecursiveComparison().isEqualTo(testEmployeeModel2);
     }
 
-    @Test void testFindUserById_Success() {
+    @Test void testFindEmployeeById_Success() {
         // Arrange
-        when(userRepository.findById(testUser1.getId())).thenReturn(Optional.of(testUser1));
-        when(userMapper.toUserModel(testUser1)).thenReturn(testUserModel1);
+        when(employeeRepository.findById(testEmployee1.getId())).thenReturn(Optional.of(testEmployee1));
+        when(userMapper.toUserModel(testEmployee1)).thenReturn(testEmployeeModel1);
 
         // Act
-        UserModel actualUser = userService.findUserById(testUser1.getId());
+        UserModel actualEmployee = employeeService.findEmployeeById(testEmployee1.getId());
 
         // Verify & Assert
-        verify(userRepository).findById(any(String.class));
-        verify(userMapper).toUserModel(any(User.class));
-        assertThat(actualUser).usingRecursiveComparison().isEqualTo(testUserModel1);
+        verify(employeeRepository).findById(any(String.class));
+        verify(userMapper).toUserModel(any(Employee.class));
+        assertThat(actualEmployee).usingRecursiveComparison().isEqualTo(testEmployeeModel1);
     }
 
-    @Test void testFindUserById_NotFound() {
+    @Test void testFindEmployeeById_NotFound() {
         // Arrange
-        when(userRepository.findById("xyz")).thenReturn(Optional.empty());
+        when(employeeRepository.findById("xyz")).thenReturn(Optional.empty());
 
         // Act and Assert
-        assertThatThrownBy(() -> userService.findUserById("xyz"))
+        assertThatThrownBy(() -> employeeService.findEmployeeById("xyz"))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("User was not found");
+                .hasMessage("Employee was not found");
     }
 
-    @Test void testFindUserBySsn_Success() {
+    @Test void testFindEmployeeBySsn_Success() {
         // Arrange
-        when(userRepository.findUserBySsn(testUser2.getSsn())).thenReturn(Optional.of(testUser2));
-        when(userMapper.toUserModel(testUser2)).thenReturn(testUserModel2);
+        when(employeeRepository.findEmployeeByEmail(testEmployee2.getEmail())).thenReturn(Optional.of(testEmployee2));
+        when(userMapper.toUserModel(testEmployee2)).thenReturn(testEmployeeModel2);
 
         // Act
-        UserModel actualUser = userService.findUserBySsn(testUser2.getSsn());
+        UserModel actualEmployee = employeeService.findEmployeeByEmail(testEmployee2.getEmail());
 
         // Verify & Assert
-        verify(userRepository).findUserBySsn(any(String.class));
-        verify(userMapper).toUserModel(any(User.class));
-        assertThat(actualUser).usingRecursiveComparison().isEqualTo(testUserModel2);
+        verify(employeeRepository).findEmployeeByEmail(any(String.class));
+        verify(userMapper).toUserModel(any(Employee.class));
+        assertThat(actualEmployee).usingRecursiveComparison().isEqualTo(testEmployeeModel2);
     }
 
-    @Test void testFindUserBySsn_NotFound() {
+    @Test void testFindEmployeeBySsn_NotFound() {
         // Arrange
-        when(userRepository.findUserBySsn("xyz")).thenReturn(Optional.empty());
+        when(employeeRepository.findEmployeeByEmail("xyz")).thenReturn(Optional.empty());
 
         // Act and Assert
-        assertThatThrownBy(() -> userService.findUserBySsn("xyz"))
+        assertThatThrownBy(() -> employeeService.findEmployeeByEmail("xyz"))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("User was not found");
+                .hasMessage("Employee was not found");
     }
 
-    @Test void testAddUser_Success() {
+    @Test void testAddEmployee_Success() {
         // Arrange
-        when(userMapper.toUser(testUserModel1)).thenReturn(testUser1);
-        when(userRepository.existsById(testUser1.getId())).thenReturn(false);
+        when(userMapper.toEmployee(testEmployeeModel1)).thenReturn(testEmployee1);
+        when(employeeRepository.existsById(testEmployee1.getId())).thenReturn(false);
 
         // Act
-        userService.addUser(testUserModel1);
+        employeeService.addNewEmployee(testEmployeeModel1);
 
         // Verify & Assert
-        verify(userMapper).toUser(any(UserModel.class));
-        verify(userRepository).existsById(any(String.class));
-        verify(userRepository).save(any(User.class));
+        verify(userMapper).toEmployee(any(UserModel.class));
+        verify(employeeRepository).existsById(any(String.class));
+        verify(employeeRepository).save(any(Employee.class));
     }
 
-    @Test void testAddUser_AlreadyExists() {
+    @Test void testAddEmployee_AlreadyExists() {
         // Arrange
-        when(userMapper.toUser(testUserModel1)).thenReturn(testUser1);
-        when(userRepository.existsById(testUser1.getId())).thenReturn(true);
+        when(userMapper.toEmployee(testEmployeeModel1)).thenReturn(testEmployee1);
+        when(employeeRepository.existsById(testEmployee1.getId())).thenReturn(true);
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.addUser(testUserModel1))
+        assertThatThrownBy(() -> employeeService.addNewEmployee(testEmployeeModel1))
                 .isInstanceOf(EntityExistsException.class)
-                .hasMessage("User already exists");
+                .hasMessage("Employee already exists");
 
         // Verify No interaction
-        verify(userRepository, never()).save(any(User.class));
+        verify(employeeRepository, never()).save(any(Employee.class));
     }
 
-    @Test void deleteUser_Success() {
+    @Test void deleteEmployee_Success() {
         // Arrange
-        when(userRepository.findById(testUser2.getId())).thenReturn(Optional.of(testUser2));
+        when(employeeRepository.findById(testEmployee2.getId())).thenReturn(Optional.of(testEmployee2));
 
         // Act
-        userService.deleteUser(testUser2.getId());
+        employeeService.deleteEmployee(testEmployee2.getId());
 
         // Verify & Assert
-        verify(userRepository).findById(testUser2.getId());
-        verify(userRepository).delete(testUser2);
+        verify(employeeRepository).findById(testEmployee2.getId());
+        verify(employeeRepository).delete(testEmployee2);
     }
 
-    @Test void deleteUser_NotFound() {
+    @Test void deleteEmployee_NotFound() {
         // Arrange
-        when(userRepository.findById("xyz")).thenReturn(Optional.empty());
+        when(employeeRepository.findById("xyz")).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.deleteUser("xyz"))
+        assertThatThrownBy(() -> employeeService.deleteEmployee("xyz"))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("User was not found");
+                .hasMessage("Employee was not found");
 
         //Verify
-        verify(userRepository, never()).delete(any(User.class));
+        verify(employeeRepository, never()).delete(any(Employee.class));
     }
 
-    @Test void updateUser_Success() {
+    @Test void updateEmployee_Success() {
         // Arrange
-        UserModel updatedUserModel = new UserModel("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "newPassword321");
-        when(userRepository.findById(testUser2.getId())).thenReturn(Optional.of(testUser2));
+        UserModel updatedEmployeeModel = new UserModel("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "newPassword321");
+        when(employeeRepository.findById(testEmployee2.getId())).thenReturn(Optional.of(testEmployee2));
 
         // Act
-        userService.updateUser(testUser2.getId(), updatedUserModel);
+        employeeService.updateEmployee(testEmployee2.getId(), updatedEmployeeModel);
 
         // Verify & Assert
-        verify(userRepository).findById(any(String.class));
-        verify(userRepository).save(any(User.class));
-        assertThat(testUser2.getPassword()).isEqualTo(updatedUserModel.getPassword());
+        verify(employeeRepository).findById(any(String.class));
+        verify(employeeRepository).save(any(Employee.class));
+        assertThat(testEmployee2.getPassword()).isEqualTo(updatedEmployeeModel.getPassword());
     }
 
-    @Test void updateUser_NotFound() {
+    @Test void updateEmployee_NotFound() {
         // Arrange
-        UserModel updatedUserModel = new UserModel("53", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "newPassword321");
-        when(userRepository.findById("xyz")).thenReturn(Optional.empty());
+        UserModel updatedEmployeeModel = new UserModel("xyz", "543-93-5322", "Laury", "Parker", "laury.parker@example.com", "newPassword321");
+        when(employeeRepository.findById("xyz")).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThatThrownBy(() -> userService.updateUser("xyz", updatedUserModel))
+        assertThatThrownBy(() -> employeeService.updateEmployee("xyz", updatedEmployeeModel))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("User was not found");
+                .hasMessage("Employee was not found");
 
         // Verify No interaction
-        verify(userRepository, never()).save(any(User.class));
+        verify(employeeRepository, never()).save(any(Employee.class));
     }
 }
