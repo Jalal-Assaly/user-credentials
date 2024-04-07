@@ -1,4 +1,4 @@
-package com.example.usercredentials.exceptionhandlers.responsebodies;
+package org.pacs.usercredentialsapi.exceptionhandlers.responsebodies;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

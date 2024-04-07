@@ -1,4 +1,4 @@
-package com.example.usercredentials.models;
+package org.pacs.usercredentialsapi.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserModel {
+public class UserCredentialsModel {
 
     @NotBlank(message = "ID cannot be blank")
     @Size(min = 1, max = 1000000, message = "ID does not meet size requirements")
@@ -32,8 +32,5 @@ public class UserModel {
     private String email;
 
     @NotBlank(message = "Password cannot be empty")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).+$",
-            message = "Password must include at least one number, one capital letter and one symbol")
-    @Size(min = 7, message = "Password must include at least 7 characters")
     private String password;
 }

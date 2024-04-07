@@ -1,8 +1,8 @@
-package com.example.usercredentials.exceptionhandlers;
+package org.pacs.usercredentialsapi.exceptionhandlers;
 
-import com.example.usercredentials.exceptionhandlers.responsebodies.ConstraintViolationExceptionResponseBody;
-import com.example.usercredentials.exceptionhandlers.responsebodies.EntityNotFoundExceptionResponseBody;
-import com.example.usercredentials.exceptionhandlers.responsebodies.ValidationExceptionBody;
+import org.pacs.usercredentialsapi.exceptionhandlers.responsebodies.ConstraintViolationExceptionResponseBody;
+import org.pacs.usercredentialsapi.exceptionhandlers.responsebodies.EntityNotFoundExceptionResponseBody;
+import org.pacs.usercredentialsapi.exceptionhandlers.responsebodies.ValidationExceptionBody;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

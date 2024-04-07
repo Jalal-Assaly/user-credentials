@@ -1,4 +1,4 @@
-package com.example.usercredentials.exceptionhandlers.responsebodies;
+package org.pacs.usercredentialsapi.exceptionhandlers.responsebodies;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EntityNotFoundExceptionResponseBody {
+public class EntityExistsExceptionResponseBody {
     @JsonProperty("timestamp")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dateTime;
@@ -21,7 +21,7 @@ public class EntityNotFoundExceptionResponseBody {
     @JsonProperty("message")
     private String errorMessage;
 
-    public EntityNotFoundExceptionResponseBody(HttpStatusCode status, RuntimeException exception) {
+    public EntityExistsExceptionResponseBody(HttpStatusCode status, RuntimeException exception) {
         this.dateTime = LocalDateTime.now();
         this.status = status.value();
         this.errorMessage = exception.getMessage();

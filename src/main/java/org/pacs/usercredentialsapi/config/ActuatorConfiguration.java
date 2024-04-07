@@ -1,4 +1,4 @@
-package com.example.usercredentials.config;
+package org.pacs.usercredentialsapi.config;
 
 import org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository;
 import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository;

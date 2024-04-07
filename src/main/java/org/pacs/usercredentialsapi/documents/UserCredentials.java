@@ -1,4 +1,4 @@
-package com.example.usercredentials.documents;
+package org.pacs.usercredentialsapi.documents;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.HashIndexed;
 
 @Data
 @AllArgsConstructor
-public abstract class User {
+public abstract class UserCredentials {
     @Id
     private String id;
     private String ssn;
