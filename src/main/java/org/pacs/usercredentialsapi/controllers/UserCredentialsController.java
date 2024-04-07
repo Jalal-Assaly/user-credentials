@@ -40,14 +40,14 @@ public class UserCredentialsController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/employee/find/email")
-    public ResponseEntity<UserCredentialsModel> findEmployeeByEmail(@RequestParam String email) {
+    @GetMapping("/employee/find/email/{email}")
+    public ResponseEntity<UserCredentialsModel> findEmployeeByEmail(@PathVariable String email) {
         UserCredentialsModel user = userCredentialsService.findEmployeeByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/visitor/find/email")
-    public ResponseEntity<UserCredentialsModel> findVisitorByEmail(@RequestParam String email) {
+    @GetMapping("/visitor/find/email/{email}")
+    public ResponseEntity<UserCredentialsModel> findVisitorByEmail(@PathVariable String email) {
         UserCredentialsModel user = userCredentialsService.findVisitorByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
