@@ -11,8 +11,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserModel {
 
-    @NotBlank(message = "User ID cannot be blank")
-    @Size(min = 1, max = 1000000, message = "User ID does not meet size requirements")
+    @NotBlank(message = "ID cannot be blank")
+    @Size(min = 1, max = 1000000, message = "ID does not meet size requirements")
     private String id;
 
     @NotBlank(message = "SSN cannot be blank")
