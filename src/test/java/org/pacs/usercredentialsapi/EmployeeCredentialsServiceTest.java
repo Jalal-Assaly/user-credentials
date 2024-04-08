@@ -3,7 +3,6 @@ package org.pacs.usercredentialsapi;
 import jakarta.validation.ValidationException;
 import org.pacs.usercredentialsapi.documents.EmployeeCredentials;
 
-import org.pacs.usercredentialsapi.documents.VisitorCredentials;
 import org.pacs.usercredentialsapi.models.UserCredentialsModel;
 import org.pacs.usercredentialsapi.models.mappers.UserMapper;
 import org.pacs.usercredentialsapi.repositories.EmployeeCredentialsRepository;
