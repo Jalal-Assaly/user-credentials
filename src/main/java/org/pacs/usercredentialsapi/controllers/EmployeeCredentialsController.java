@@ -22,31 +22,31 @@ public class EmployeeCredentialsController {
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
-    @GetMapping("/employee/find/id/{id}")
+    @GetMapping("/find/id/{id}")
     public ResponseEntity<UserCredentialsModel> findEmployeeById(@PathVariable String id) {
         UserCredentialsModel user = employeeCredentialsService.findEmployeeById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/employee/find/email/{email}")
+    @GetMapping("/find/email/{email}")
     public ResponseEntity<UserCredentialsModel> findEmployeeByEmail(@PathVariable String email) {
         UserCredentialsModel user = employeeCredentialsService.findEmployeeByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/employee/add")
+    @PostMapping("/add")
     public ResponseEntity<Void> addEmployee(@RequestBody UserCredentialsModel userCredentialsModel) {
         employeeCredentialsService.addNewEmployee(userCredentialsModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/employee/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
         employeeCredentialsService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/employee/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateEmployee(@PathVariable String id, @RequestBody UserCredentialsModel userCredentialsModel) {
         employeeCredentialsService.updateEmployee(id, userCredentialsModel);
         return new ResponseEntity<>(HttpStatus.OK);
