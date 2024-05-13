@@ -1,8 +1,8 @@
 package org.pacs.usercredentialsapi.documents;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.HashIndexed;
 
 @Data
