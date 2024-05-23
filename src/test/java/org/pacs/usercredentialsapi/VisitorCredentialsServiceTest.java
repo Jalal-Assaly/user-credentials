@@ -130,7 +130,7 @@ public class VisitorCredentialsServiceTest {
         // Verify & Assert
         verify(userMapper).toVisitor(any(UserCredentialsModel.class));
         verify(visitorCredentialsRepository).existsById(any(String.class));
-        verify(visitorCredentialsRepository).save(any(VisitorCredentials.class));
+        verify(visitorCredentialsRepository).insert(any(VisitorCredentials.class));
     }
 
     @Test void testAddVisitor_AlreadyExists() {
@@ -144,7 +144,7 @@ public class VisitorCredentialsServiceTest {
                 .hasMessage("Visitor already exists");
 
         // Verify No interaction
-        verify(visitorCredentialsRepository, never()).save(any(VisitorCredentials.class));
+        verify(visitorCredentialsRepository, never()).insert(any(VisitorCredentials.class));
     }
 
     @Test void deleteVisitor_Success() {

@@ -127,7 +127,7 @@ public class EmployeeCredentialsServiceTest {
         // Verify & Assert
         verify(userMapper).toEmployee(any(UserCredentialsModel.class));
         verify(employeeCredentialsRepository).existsById(any(String.class));
-        verify(employeeCredentialsRepository).save(any(EmployeeCredentials.class));
+        verify(employeeCredentialsRepository).insert(any(EmployeeCredentials.class));
     }
 
     @Test void testAddEmployee_AlreadyExists() {
@@ -141,7 +141,7 @@ public class EmployeeCredentialsServiceTest {
                 .hasMessage("Employee already exists");
 
         // Verify No interaction
-        verify(employeeCredentialsRepository, never()).save(any(EmployeeCredentials.class));
+        verify(employeeCredentialsRepository, never()).insert(any(EmployeeCredentials.class));
     }
 
     @Test void deleteEmployee_Success() {
