@@ -47,7 +47,7 @@ public class EmployeeCredentialsService {
         if(employeeCredentialsRepository.existsById(employeeCredentials.getId())) {
             throw new EntityExistsException("Employee already exists");
         } else {
-            employeeCredentialsRepository.save(employeeCredentials);
+            employeeCredentialsRepository.insert(employeeCredentials);
         }
     }
 

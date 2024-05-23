@@ -44,7 +44,7 @@ public class VisitorCredentialsService {
         if(visitorRepository.existsById(visitorCredentials.getId())) {
             throw new EntityExistsException("Visitor already exists");
         } else {
-            visitorRepository.save(visitorCredentials);
+            visitorRepository.insert(visitorCredentials);
         }
     }
 
